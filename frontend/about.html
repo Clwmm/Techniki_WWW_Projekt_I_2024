@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Embeded Projects</title>
+    <title>About me</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/output.css">
     <style>
@@ -18,6 +18,7 @@
             flex: 1;
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/marked@4.0.10/lib/marked.min.js"></script>
 </head>
 
 <body class="bg-gray-100 text-gray-800">
@@ -54,46 +55,21 @@
 
         <!-- Main Content Area -->
         <section class="md:w-3/4 md:ml-3 mx-3 bg-white p-6 rounded-lg shadow-lg">
-            <h2 class="text-3xl font-bold mb-4">Embedded Projects</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Project Card -->
-                <a href="https://github.com/Clwmm/Raspberry_Pi_Pico_Maze_Generator"
-                    class="p-6 rounded-lg shadow border border-purple-500 hover:cursor-pointer transform transition-all hover:scale-105 hover:bg-purple-100">
-                    <h3 class="text-xl font-semibold text-gray-800">Raspberry Pi Pico Maze Generator</h3>
-                    <div class="mb-4">
-                        <!-- Image Placeholder -->
-                        <img src="images/Raspberry_Pi_Pico_Maze_Generator.jpg" alt="Raspberry Pi Pico Maze Generator"
-                            class="w-full h-auto rounded-lg">
-                    </div>
-                    <p class="text-gray-400 mt-2">
-                        This repository contains a project for procedural creating and solving a maze using a Raspberry
-                        Pi Pico
-                        microcontroller and a Pico-ResTouch-LCD-3.5 display. The maze solving algorithm is implemented
-                        using: Maze
-                        generation algorithm and A* search algorithm.
-                    </p>
-                </a>
 
-                <!-- Project Card -->
-                <a href="https://github.com/Clwmm/Arduino_Nano_Clock"
-                    class="p-6 rounded-lg shadow border border-purple-500 hover:cursor-pointer transform transition-all hover:scale-105 hover:bg-purple-100">
-                    <h3 class="text-xl font-semibold text-gray-800">Arduino Nano Clock</h3>
-                    <div class="mb-4">
-                        <!-- Image Placeholder -->
-                        <img src="images/Arduino_Nano_Clock.jpg" alt="Arduino Nano Clock"
-                            class="w-full h-auto rounded-lg">
-                    </div>
-                    <p class="text-gray-400 mt-2">
-                        The Arduino Nano Clock repository is a project aimed at creating a versatile and customizable
-                        clock using
-                        the Arduino Nano microcontroller board. This project provides a platform for hobbyists, makers,
-                        and
-                        enthusiasts to build their own digital clocks with various features and functionalities.
-                    </p>
-                </a>
+            <div id="readme" class="p-4 m-2 rounded-lg border border-purple-500">Loading README...
             </div>
-        </section>
 
+            <div class="p-4 m-2 rounded-lg border border-purple-500">
+                <h2 class="text-md font-bold mb-1 text-center text-gray-800">
+                    I graduated from Communications Technical School as an Electronics Technician,
+                    where I learned my passion for programming and electronics. I am currently in my
+                    third year of Applied Computer Science at the Jagiellonian University, where I am
+                    expanding my knowledge of programming, and in my free time I write games and
+                    various projects using Arduino and Raspberry Pi in C++.
+                </h2>
+            </div>
+
+        </section>
     </main>
 
     <!-- Footer -->
@@ -102,6 +78,35 @@
             <p>&copy; 2024 CS Student & C++ Developer. All Rights Reserved.</p>
         </div>
     </footer>
+
+
+    <script type="module">
+        import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
+        const readmeUrl = `https://raw.githubusercontent.com/Clwmm/Clwmm/refs/heads/main/README.md`;
+        const readme_div = document.getElementById('readme');
+
+        fetch(readmeUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch README');
+                }
+                return response.text();
+            })
+            .then(data => {
+                const markedReadme = marked.parse(data);
+                readme_div.innerHTML = markedReadme;
+                let p = readme_div.querySelector('p');
+                if (p) {
+                    console.log(p);
+                    p.classList.add('flex');
+                };
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                readme_div.textContent = 'Failed to load README.';
+            });
+    </script>
+
 </body>
 
 </html>
